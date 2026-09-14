@@ -6,6 +6,7 @@ import Link from 'next/link'
 interface Score {
   firstName: string
   lastName: string
+  phone: string
   rounds: number
   keysInRound: number
   time: number
@@ -24,13 +25,14 @@ function RankingSkeleton() {
     <div className="min-h-screen p-6 bg-gradient-to-br from-[#0B2558] to-black text-gray-100">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl text-white mb-6 text-center mt-8">Ranking</h1>
-        <div className="grid grid-cols-5 gap-4 font-bold pb-2 border-b border-gray-300">
-          <div>Pos.</div><div>Nombre</div><div>Vueltas</div><div>Teclas</div><div>Tiempo</div>
+        <div className="grid grid-cols-6 gap-4 font-bold pb-2 border-b border-gray-300">
+          <div>Pos.</div><div>Nombre</div><div>Teléfono</div><div>Vueltas</div><div>Teclas</div><div>Tiempo</div>
         </div>
         {Array.from({ length: 10 }).map((_, i) => (
-          <div key={i} className={`${i % 2 === 0 ? 'bg-white/10' : ''} grid grid-cols-5 gap-4 py-2`}>
+          <div key={i} className={`${i % 2 === 0 ? 'bg-white/10' : ''} grid grid-cols-6 gap-4 py-2`}>
             <div className="h-5 w-6 bg-gray-600 rounded animate-pulse" />
             <div className="h-5 w-24 bg-gray-600 rounded animate-pulse" />
+            <div className="h-5 w-20 bg-gray-600 rounded animate-pulse" />
             <div className="h-5 w-8 bg-gray-600 rounded animate-pulse" />
             <div className="h-5 w-8 bg-gray-600 rounded animate-pulse" />
             <div className="h-5 w-12 bg-gray-600 rounded animate-pulse" />
@@ -65,13 +67,14 @@ export default function RankingPage() {
     <div className="min-h-screen p-6 bg-gradient-to-br from-[#0B2558] to-black text-gray-100">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl text-white mb-6 text-center mt-8">Ranking</h1>
-        <div className="grid grid-cols-5 gap-4 font-bold pb-2 border-b border-gray-300">
-          <div>Pos.</div><div>Nombre</div><div>Vueltas</div><div>Teclas</div><div>Tiempo</div>
+        <div className="grid grid-cols-6 gap-4 font-bold pb-2 border-b border-gray-300">
+          <div>Pos.</div><div>Nombre</div><div>Teléfono</div><div>Vueltas</div><div>Teclas</div><div>Tiempo</div>
         </div>
         {data.slice(0, 20).map((s, i) => (
-          <div key={i} className={`${i % 2 === 0 ? 'bg-white/10' : ''} grid grid-cols-5 gap-4 py-2`}>
+          <div key={i} className={`${i % 2 === 0 ? 'bg-white/10' : ''} grid grid-cols-6 gap-4 py-2`}>
             <div>{i + 1}</div>
             <div>{s.firstName} {s.lastName}</div>
+            <div>{s.phone}</div>
             <div>{s.rounds}</div>
             <div>{s.keysInRound}</div>
             <div>{formatTime(s.time)}</div>

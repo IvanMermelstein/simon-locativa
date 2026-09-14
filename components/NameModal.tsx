@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Trophy } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
@@ -8,23 +7,10 @@ import type { GameResult } from './simon-game'
 interface NameModalProps {
   open: boolean
   result: GameResult | null
-  onSubmit: (firstName: string, lastName: string) => void
   onClose: () => void
 }
 
-export function NameModal({ open, result, onSubmit, onClose }: NameModalProps) {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [isSaving, setIsSaving] = useState(false)
-
-  const handleSubmit = async () => {
-    setIsSaving(true)
-    await onSubmit(firstName.trim(), lastName.trim())
-    setIsSaving(false)
-    setFirstName('')
-    setLastName('')
-  }
-
+export function NameModal({ open, result, onClose }: NameModalProps) {
   return (
     <Dialog open={open} onOpenChange={(isOpen) => { if (!isOpen) onClose() }}>
       <DialogContent onInteractOutside={(e) => e.preventDefault()} onEscapeKeyDown={(e) => e.preventDefault()}>
@@ -41,28 +27,9 @@ export function NameModal({ open, result, onSubmit, onClose }: NameModalProps) {
             {formatTime(result.time)}.
           </p>
         )}
-        <div className="space-y-4">
-          <input
-            className="w-full p-2 border rounded"
-            placeholder="Nombre"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            disabled={isSaving}
-          />
-          <input
-            className="w-full p-2 border rounded"
-            placeholder="Apellido"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            disabled={isSaving}
-          />
-        </div>
         <DialogFooter>
-          <Button
-            onClick={handleSubmit}
-            disabled={!firstName || !lastName || isSaving}
-          >
-            {isSaving ? 'Guardando...' : 'Guardar puntaje'}
+          <Button onClick={onClose} className="w-full">
+            OK
           </Button>
         </DialogFooter>
       </DialogContent>

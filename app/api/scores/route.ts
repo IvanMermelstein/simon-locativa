@@ -15,12 +15,12 @@ async function initDoc() {
 }
 
 export async function POST(req: Request) {
-  const { firstName, lastName, rounds, keysInRound, time } = await req.json()
+  const { firstName, lastName, phone, rounds, keysInRound, time } = await req.json()
   if (!firstName || !lastName || rounds == null || keysInRound == null || time == null)
     return NextResponse.json({ error: 'Datos incompletos' }, { status: 400 })
 
   const sheet = await initDoc()
-  await sheet.addRow({ firstName, lastName, rounds, keysInRound, time, createdAt: new Date().toISOString() })
+  await sheet.addRow({ firstName, lastName, phone, rounds, keysInRound, time, createdAt: new Date().toISOString() })
   return NextResponse.json({ success: true }, { status: 201 })
 }
 
@@ -32,6 +32,7 @@ export async function GET() {
     return {
       firstName: rec.firstName,
       lastName: rec.lastName,
+      phone: rec.phone,
       rounds: Number(rec.rounds),
       keysInRound: Number(rec.keysInRound),
       time: Number(rec.time),
