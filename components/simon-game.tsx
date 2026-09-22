@@ -314,7 +314,10 @@ export default function SimonGame() {
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="text-center mb-4">
-          <div className="relative w-full max-w-[500px] aspect-[500/263] mx-auto my-2 overflow-hidden">
+          <div className="relative w-full max-w-[500px] mx-auto my-2 overflow-hidden">
+            {/* Espaciador que fuerza el alto según el ancho (relación 500:263)
+                sin depender de aspect-ratio, no soportado en navegadores/tablets viejos */}
+            <div className="pt-[52.6%]" />
             <Image
               src={cabeceraSimon}
               fill
@@ -386,9 +389,14 @@ export default function SimonGame() {
           }`}
         >
           <div
-            className="relative aspect-square w-[min(90vw,520px)] select-none rounded-full"
+            className="relative w-[min(90vw,520px)] select-none rounded-full"
             style={{ boxShadow: "0 10px 20px rgba(0,0,0,0.5)" }}
           >
+            {/* Espaciador que fuerza el alto = ancho sin depender de aspect-ratio
+                (CSS moderno que algunos navegadores/tablets viejos no soportan;
+                sin esto el disco queda con 0px de alto en esos dispositivos) */}
+            <div className="pt-[100%]" />
+
             {/* Disco: 6 gajos pegados formando un círculo completo, como el Simon original */}
             {/* La sombra del disco va en el div contenedor (no en el svg) para que no interfiera
                 con el drop-shadow individual de cada gajo al iluminarse */}
